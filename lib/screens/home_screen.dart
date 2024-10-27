@@ -61,8 +61,8 @@ class _HomeScreenState extends State<HomeScreen> {
               label: '',
             ),
             NavigationDestination(
-              icon: Icon(Icons.settings_outlined, color: Colors.white),
-              selectedIcon: Icon(Icons.settings, color: Colors.white),
+              icon: Icon(Icons.assignment_outlined, color: Colors.white), // Changed to assignment icon
+              selectedIcon: Icon(Icons.assignment, color: Colors.white), // Changed to assignment icon
               label: '',
             ),
           ],
