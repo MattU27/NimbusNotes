@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-
 import '/constants/text_styles.dart';
 import '/views/gradient_container.dart';
 
