@@ -70,8 +70,6 @@ String getWeatherIcon2(int id) {
   return 'assets/icons/01d.png';
 }
 
-
-
 /*
 
 0: Clear sky

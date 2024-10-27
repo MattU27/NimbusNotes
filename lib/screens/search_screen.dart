@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app_tutorial/screens/weather_detail_screen.dart';
+import 'package:weather_app_tutorial/screens/weather_detail_screen.dart';
 
+import '/models/famous_city.dart';
 import '/models/famous_city.dart';
 import '/constants/app_colors.dart';
 import '/constants/text_styles.dart';
