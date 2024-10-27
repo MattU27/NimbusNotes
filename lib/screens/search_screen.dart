@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app_tutorial/screens/weather_detail_screen.dart';
 
 import '/constants/app_colors.dart';
 import '/constants/text_styles.dart';
@@ -15,6 +16,7 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   late final TextEditingController _searchController;
+  String _searchQuery = '';
 
   @override
   void initState() {
@@ -30,45 +32,144 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const GradientContainer(
-      children: [
-        // Page title
-        Align(
-          alignment: Alignment.center,
-          child: Text(
-            'Pick Location',
-            style: TextStyles.h1,
-          ),
-        ),
-
-        SizedBox(height: 20),
-
-        // Page subtitle
-        Text(
-          'Find the area or city that you want to know the detailed weather info at this time',
-          style: TextStyles.subtitleText,
-          textAlign: TextAlign.center,
-        ),
-
-        SizedBox(height: 40),
-
-        // Pick location row
-        Row(
-          children: [
-            // Choose city text field
-            Expanded(
-              child: RoundTextField(),
+    return Scaffold(
+      body: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.bottomLeft,
+                end: Alignment.topRight,
+                colors: [
+                  AppColors.deepCharcoal,
+                  AppColors.mutedSlate,
+                  AppColors.mutedSlate.withOpacity(.99),
+                  AppColors.mutedSlate.withOpacity(.98),
+                  AppColors.mutedSlate.withOpacity(.97),
+                  AppColors.mutedSlate.withOpacity(.96),
+                  AppColors.mutedSlate.withOpacity(.95),
+                  AppColors.mutedSlate.withOpacity(.94),
+                  AppColors.mutedSlate.withOpacity(.93),
+                  AppColors.mutedSlate.withOpacity(.92),
+                  AppColors.mutedSlate.withOpacity(.91),
+                  AppColors.mutedSlate.withOpacity(.90),
+                  AppColors.darkPurple,
+                  AppColors.accentPurple,
+                  AppColors.lightPurple,
+                ],
+              ),
             ),
-            SizedBox(width: 15),
+            child: Column(
+              children: [
+                SizedBox(height: 90),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    controller: _searchController,
+                    decoration: InputDecoration(
+                      labelText: 'Enter city name',
+                      labelStyle: TextStyle(color: AppColors.paleLilac), 
+                      border: OutlineInputBorder(),
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        _searchQuery = value;
+                      });
+                    },
+                  ),
+                ),
+                Expanded(
+                  child: _searchQuery.isEmpty
+                      ? Center(
+                          child: Text(
+                            'Enter a city name to search',
+                            style: TextStyle(
+                              color: AppColors
+                                  .paleLilac, // Change this to your desired color
+                            ),
+                          ),
+                        )
+                      : _buildSearchResults(),
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+            top: 40.0, // Adjust this value as needed
+            left: 0,
+            right: 0,
+            child: Center(
+              child: Text(
+                'Search City',
+                style: TextStyle(
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.paleLilac, // Adjust color as needed
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
-            LocationIcon(),
-          ],
-        ),
+  Widget _buildSearchResults() {
+    final filteredCities = famousCities.where((city) {
+      return city.toLowerCase().contains(_searchQuery.toLowerCase());
+    }).toList();
 
-        SizedBox(height: 30),
+    if (filteredCities.isEmpty) {
+      return Center(child: Text('No cities found'));
+    }
 
-        FamousCitiesWeather(),
-      ],
+    return ListView.builder(
+      itemCount: filteredCities.length,
+      itemBuilder: (context, index) {
+        final city = filteredCities[index];
+        return ListTile(
+          title: Text(city,
+              style: TextStyle(
+                color: AppColors.paleLilac, // Adjust color as needed
+              )),
+          onTap: () {
+            // Navigate to the city weather details screen
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => WeatherDetailScreen(cityName: city),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+}
+
+final List<String> famousCities = [
+  'Manila',
+  'Cebu',
+  'Davao',
+  'Quezon City',
+  'Zamboanga',
+  'Iloilo'
+];
+
+class CityWeatherScreen extends StatelessWidget {
+  final String city;
+
+  const CityWeatherScreen({required this.city});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(city),
+      ),
+      body: Center(
+        child: Text('Weather details for $city'),
+      ),
     );
   }
 }
