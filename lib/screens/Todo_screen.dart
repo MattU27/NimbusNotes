@@ -94,7 +94,7 @@ class _TodoScreenState extends State<TodoScreen> {
                   ),
                   subtitle: Text(
                     DateFormat("dd-MM-yyyy h:mm a").format(todo.updatedOn.toDate()),
-                    style: TextStyle(color: Colors.black54), // Use a darker color for subtitle
+                    style: const TextStyle(color: Colors.black54), // Use a darker color for subtitle
                   ),
                   trailing: Checkbox(
                     value: todo.isDone,
@@ -119,38 +119,56 @@ class _TodoScreenState extends State<TodoScreen> {
   }
 
   void _displayTextInputDialog() async {
-    return showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text(
-            'Add a todo',
-            style: TextStyles.h1,
-          ),
-          content: Container(
-            padding: const EdgeInsets.all(8.0), // Add padding to the content
-            child: TextField(
-              controller: _textEditingController,
-              decoration: InputDecoration(
-                hintText: "Enter your todo here...",
-                hintStyle: TextStyles.h2.copyWith(color: Colors.grey),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                  borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                  borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
-                ),
+  return showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: const Text(
+          'Add a todo',
+          style: TextStyles.h1,
+        ),
+        content: Container(
+          padding: const EdgeInsets.all(8.0), // Add padding to the content
+          child: TextField(
+            controller: _textEditingController,
+            decoration: InputDecoration(
+              hintText: "Enter your todo here...",
+              hintStyle: TextStyles.h2.copyWith(color: Colors.grey),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.0),
+                borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.0),
+                borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
               ),
             ),
           ),
-          actions: <Widget>[
-            MaterialButton(
-              color: Theme.of(context).colorScheme.primary,
-              textColor: Colors.white,
-              child: const Text('Ok'),
-              onPressed: () {
+        ),
+        actions: <Widget>[
+          MaterialButton(
+            color: Theme.of(context).colorScheme.primary,
+            textColor: Colors.white,
+            child: const Text('Ok'),
+            onPressed: () {
+              // Check if the input is empty
+              if (_textEditingController.text.isEmpty) {
+                // Show an AlertDialog to inform the user
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return const AlertDialog(
+                      title: Text('Input Required'),
+                      content: Text('You need to enter a todo!'),
+                    );
+                  },
+                );
+
+                // Automatically close the dialog after a delay
+                Future.delayed(const Duration(seconds: 2), () {
+                  Navigator.of(context).pop(); // Close the pop-up
+                });
+              } else {
                 Todo todo = Todo(
                   task: _textEditingController.text,
                   isDone: false,
@@ -160,11 +178,12 @@ class _TodoScreenState extends State<TodoScreen> {
                 _databaseService.addTodo(todo);
                 Navigator.pop(context);
                 _textEditingController.clear();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
+              }
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
 }
