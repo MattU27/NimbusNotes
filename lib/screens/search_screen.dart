@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app_tutorial/screens/weather_detail_screen.dart';
+import '../views/famous_cities_weather.dart';
 import '/constants/app_colors.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -63,7 +64,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     controller: _searchController,
                     decoration: const InputDecoration(
                       labelText: 'Enter city name',
-                      labelStyle: TextStyle(color: AppColors.paleLilac), 
+                      labelStyle: TextStyle(color: AppColors.paleLilac),
                       border: OutlineInputBorder(),
                     ),
                     onChanged: (value) {
@@ -76,11 +77,14 @@ class _SearchScreenState extends State<SearchScreen> {
                 Expanded(
                   child: _searchQuery.isEmpty
                       ? const Center(
-                          child: Text(
-                            'Enter a city name to search',
-                            style: TextStyle(
-                              color: AppColors
-                                  .paleLilac, // Change this to your desired color
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.all(16.0),
+                                  child: FamousCitiesWeather(),
+                                ),
+                              ],
                             ),
                           ),
                         )
