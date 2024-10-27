@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app_tutorial/screens/weather_detail_screen.dart';
-
 import '/constants/app_colors.dart';
-import '/constants/text_styles.dart';
-import '/views/famous_cities_weather.dart';
-import '/views/gradient_container.dart';
-import '/widgets/round_text_field.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -61,12 +56,12 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             child: Column(
               children: [
-                SizedBox(height: 90),
+                const SizedBox(height: 90),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
                     controller: _searchController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Enter city name',
                       labelStyle: TextStyle(color: AppColors.paleLilac), 
                       border: OutlineInputBorder(),
@@ -80,7 +75,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
                 Expanded(
                   child: _searchQuery.isEmpty
-                      ? Center(
+                      ? const Center(
                           child: Text(
                             'Enter a city name to search',
                             style: TextStyle(
@@ -94,7 +89,7 @@ class _SearchScreenState extends State<SearchScreen> {
               ],
             ),
           ),
-          Positioned(
+          const Positioned(
             top: 40.0, // Adjust this value as needed
             left: 0,
             right: 0,
@@ -120,7 +115,7 @@ class _SearchScreenState extends State<SearchScreen> {
     }).toList();
 
     if (filteredCities.isEmpty) {
-      return Center(child: Text('No cities found'));
+      return const Center(child: Text('No cities found'));
     }
 
     return ListView.builder(
@@ -129,7 +124,7 @@ class _SearchScreenState extends State<SearchScreen> {
         final city = filteredCities[index];
         return ListTile(
           title: Text(city,
-              style: TextStyle(
+              style: const TextStyle(
                 color: AppColors.paleLilac, // Adjust color as needed
               )),
           onTap: () {
@@ -159,7 +154,7 @@ final List<String> famousCities = [
 class CityWeatherScreen extends StatelessWidget {
   final String city;
 
-  const CityWeatherScreen({required this.city});
+  const CityWeatherScreen({super.key, required this.city});
 
   @override
   Widget build(BuildContext context) {
