@@ -109,35 +109,45 @@ class _TodoScreenState extends State<TodoScreen> {
 }
 
   void _displayTextInputDialog() async {
-    return showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Add a todo'),
-          content: TextField(
-            controller: _textEditingController,
-            decoration: const InputDecoration(hintText: "Todo..."),
-          ),
-          actions: <Widget>[
-            MaterialButton(
-              color: Theme.of(context).colorScheme.primary,
-              textColor: Colors.white,
-              child: const Text('Ok'),
-              onPressed: () {
-                Todo todo = Todo(
-                  task: _textEditingController.text,
-                  isDone: false,
-                  createdOn: Timestamp.now(),
-                  updatedOn: Timestamp.now(),
-                );
-                _databaseService.addTodo(todo);
-                Navigator.pop(context);
-                _textEditingController.clear();
-              },
+  return showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: const Text(
+          'Add a todo',
+          style: TextStyles.h1, // Use the same style as the title
+        ),
+        content: TextField(
+          controller: _textEditingController,
+          decoration: InputDecoration(
+            hintText: "",
+            hintStyle: TextStyles.h2.copyWith(color: Colors.grey), // Match hint text style
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
             ),
-          ],
-        );
-      },
-    );
-  }
+          ),
+        ),
+        actions: <Widget>[
+          MaterialButton(
+            color: Theme.of(context).colorScheme.primary,
+            textColor: Colors.white,
+            child: const Text('Ok'),
+            onPressed: () {
+              Todo todo = Todo(
+                task: _textEditingController.text,
+                isDone: false,
+                createdOn: Timestamp.now(),
+                updatedOn: Timestamp.now(),
+              );
+              _databaseService.addTodo(todo);
+              Navigator.pop(context);
+              _textEditingController.clear();
+            },
+          ),
+        ],
+      );
+    },
+  );
+ }
 }
