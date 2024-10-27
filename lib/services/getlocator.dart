@@ -11,7 +11,7 @@ Future<Position> getLocation() async {
 
   // Check the current permission status
   permission = await Geolocator.checkPermission();
-  
+
   // If permission is denied, request it
   if (permission == LocationPermission.denied) {
     permission = await Geolocator.requestPermission();
