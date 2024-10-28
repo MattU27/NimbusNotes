@@ -27,11 +27,13 @@ class Todo {
     Timestamp? createdOn,
     Timestamp? updatedOn,
   }) {
+    
     return Todo(
-        task: task ?? this.task,
-        isDone: isDone ?? this.isDone,
-        createdOn: createdOn ?? this.createdOn,
-        updatedOn: updatedOn ?? this.updatedOn);
+      task: task ?? this.task,
+      isDone: isDone ?? this.isDone,
+      createdOn: createdOn ?? this.createdOn,
+      updatedOn: updatedOn ?? this.updatedOn,
+    );
   }
 
   Map<String, Object?> toJson() {

@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:weather_app_tutorial/models/todo.dart';
 
-
-const String TODO_COLLECTON_REF = "todos";
+const String TODO_COLLECTION_REF = "todos";
 
 class DatabaseService {
   final _firestore = FirebaseFirestore.instance;
@@ -10,14 +9,14 @@ class DatabaseService {
   late final CollectionReference<Todo> _todosRef;
 
   DatabaseService() {
-    _todosRef = _firestore.collection(TODO_COLLECTON_REF).withConverter<Todo>(
+    _todosRef = _firestore.collection(TODO_COLLECTION_REF).withConverter<Todo>(
       fromFirestore: (snapshots, _) => Todo.fromJson(snapshots.data()!),
       toFirestore: (todo, _) => todo.toJson(),
     );
   }
 
   Stream<QuerySnapshot<Todo>> getTodos() {
-    return _todosRef.snapshots();
+    return _todosRef.orderBy('createdOn', descending: true).snapshots(); // Sort by createdOn in descending order
   }
 
   void addTodo(Todo todo) async {
