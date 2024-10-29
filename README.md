@@ -32,4 +32,4 @@ Special thanks to Mr. Cyrus Rj W. Robles for guidance and feedback.
 
 ### Co-Authors
 - GodRard (mastergerard@live.com)
-- Entropy9901
+- Entropy9901 (enthropy9901@gmail.com)
