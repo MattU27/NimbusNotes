@@ -1,4 +1,4 @@
-# NimbusNotes
+# Nimbus Notes
 
 ## Project Overview
 Advanced Mobile Programming project focused on providing essential weather information with a user-friendly interface.
