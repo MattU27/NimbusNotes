@@ -9,7 +9,7 @@ Advanced Mobile Programming project focused on providing essential weather infor
 - **Designer**: John Paul Dacera
 
 ### Instructor
-Mr. Cyrus Rj W. Robles
+Mr. Cyrus 
 
 ### Key Features
 
@@ -28,7 +28,7 @@ Mr. Cyrus Rj W. Robles
 - **Geolocation**: Provides user location-based weather data using the Geolocator package.
 
 ### Acknowledgments
-Special thanks to Mr. Cyrus Rj W. Robles for guidance and feedback.
+Special thanks to Mr. Cyrus for guidance and feedback.
 
 ### Co-Authors
 - GodRard (mastergerard@live.com)
